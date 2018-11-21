@@ -1,0 +1,45 @@
+<!-- Esther Koh -->
+<!-- PSet8 -->
+<!-- 11/5/18 -->
+<!-- Registration form -->
+
+{% extends "layout.html" %}
+
+{% block title %}
+    Register
+{% endblock %}
+
+{% block main %}
+    <form action="/register" onsubmit="return validate()" method="post">
+        <div class="form-group">
+            <input autocomplete="off" autofocus class="form-control" name="username" placeholder="Username" type="text">
+        </div>
+        <div class="form-group">
+            <input autocomplete="off" autofocus class="form-control" name="email" placeholder="Email" type="text">
+        </div>
+        <div class="form-group">
+            <input class="form-control" name="password" placeholder="Password" type="password">
+        </div>
+        <div class="form-group">
+            <input class="form-control" name="confirmation" placeholder="Confirmation" type="password">
+        </div>
+        <button class="btn btn-primary" type="submit">Log In</button>
+    </form>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script>
+
+        function validate() {
+            document.querySelector('form').onsubmit.preventDefault();
+            $.get('/check', {username: document.querySelector('input[name=username]').value}, function(data) {
+                if (data) {
+                    document.querySelector('form').submit();
+                }
+                else {
+                    alert('Username is not available');
+                }
+            });
+        }
+
+    </script>
+{% endblock %}
